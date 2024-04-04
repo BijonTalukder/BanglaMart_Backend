@@ -1,14 +1,16 @@
 import { Request, Response } from "express";
 import userService from "./user.service";
+import sendResponse from "../../shared/sendResponse";
 
-const createUser = async (req:Request, res:Response) => {
+const createUser = async (req: Request, res: Response) => {
   try {
     const result = await userService.createUser(req.body);
-    res.status(200).json({
-        success:true,
-        message:"success",
-        data:result
-    })
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "create user",
+      data: result,
+    });
   } catch (error) {}
 };
 
