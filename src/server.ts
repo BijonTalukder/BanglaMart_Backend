@@ -1,14 +1,21 @@
 import mongoose from 'mongoose';
+import { Dotconfig } from './utility/config';
+import app from './app';
 
-main().catch(err => console.log(err));
+
 
 async function main() {
 
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/test');
-
+      // console.log(Dotconfig.DataBaseUrl,process.env.DATABASE_URL)
+        await mongoose.connect(Dotconfig.DataBaseUrl as string);
+        console.log(`🛢   Database is connected successfully`);
+        app.listen(Dotconfig.Port, () => {
+          console.log(`Application app listening on port ${Dotconfig.Port}`)
+        })
         
     } catch (error) {
+      console.log(error)
         
     }
 
@@ -16,3 +23,4 @@ async function main() {
 
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
+main()
