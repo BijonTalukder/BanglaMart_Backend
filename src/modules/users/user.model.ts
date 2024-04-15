@@ -34,6 +34,13 @@ const userSchema = new Schema<IUser>(
     },
   }
 );
+userSchema.statics.isUserExist = async function (id:number) {
+  return await User.findOne(
+    { id },
+    { id: 1, password: 1}
+  );
+  
+}
 userSchema.pre('save', async function (next) {
   // hashing user password
   const User = this;
