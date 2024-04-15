@@ -4,7 +4,11 @@ import sendResponse from "../../shared/sendResponse";
 
 const createUser = async (req: Request, res: Response) => {
   try {
+    console.log(134);
+    
     const result = await userService.createUser(req.body);
+    console.log(result);
+    
     sendResponse(res, {
       statusCode: 200,
       success: true,

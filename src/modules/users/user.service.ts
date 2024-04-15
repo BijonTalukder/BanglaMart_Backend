@@ -1,9 +1,12 @@
-import { user } from "./user.model";
+import { User } from "./user.model";
 
 const createUser = async (payload:any) => {
-  const createUser = await user.create(payload);
-  if (!createUser) {
-  }
+  console.log(payload);
+  
+  const createUser = await User.create(payload);
+  console.log(createUser);
+  // if (!createUser) {
+  // }
   return createUser;
 };
 export default {
