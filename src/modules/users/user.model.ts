@@ -1,7 +1,7 @@
 import { Model, Schema, model } from "mongoose";
 import bcrypt from 'bcrypt'
-import { IUser } from "./user.interface";
-const userSchema = new Schema<IUser>(
+import { IUser, IUserMethods } from "./user.interface";
+const userSchema = new Schema<IUser,IUserMethods>(
   {
    
       id:{type:Number},
@@ -9,6 +9,7 @@ const userSchema = new Schema<IUser>(
       email:{type:String},
       password:{type:String},
       phoneNumber:{type:String},
+      role:{type:String,enum:["user","seller"]},
       address:{type:String},
       isSeller:{type:String},
       switchingType:{type:String},
@@ -16,16 +17,7 @@ const userSchema = new Schema<IUser>(
       companyName:{type:String},
       companyAddress:{type:String},
       status:{type:String},
-      
-
-      
-
-
-
-
-      
-    
-  },
+      },
   
   {
     timestamps: true,
@@ -34,6 +26,13 @@ const userSchema = new Schema<IUser>(
     },
   }
 );
+
+userSchema.methods.isPasswordMatched = async function (givenPassword:string,savedPassword:string) {
+ 
+ console.log("call password matched")
+  const isMatched = await bcrypt.compare(givenPassword,savedPassword);
+return isMatched;
+}
 userSchema.statics.isUserExist = async function (id:number) {
   return await User.findOne(
     { id },

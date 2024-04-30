@@ -5,6 +5,7 @@ export type IUser = {
     password:string;
     phoneNumber:string;
     address:string;
+    role:string;
     isSeller:string;
     switchingType:string;
     selleingProductType:string;
@@ -14,3 +15,8 @@ export type IUser = {
     
 
   };
+  export interface IUserMethods{
+    isUserExist(id:string):Promise<Partial<IUser>| null>
+    isPasswordMatched(givenPassword:string,savedPassword:string):Promise<boolean>
+  
+  }
